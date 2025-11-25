@@ -32,9 +32,9 @@ A Python-based tool designed to extract and filter financial data for companies 
 
 ## Configuration
 
-Before running the script, you need to configure a few settings in `vintage_scrapper.py`:
+Before running the script, you need to configure a few settings in `scrapper.py`:
 
-1.  Open `vintage_scrapper.py` in a text editor or IDE.
+1.  Open `scrapper.py` in a text editor or IDE.
 2.  **Set your API Key**:
     Find the `API_KEY` variable and replace the placeholder with your actual EODHD API key.
     ```python
@@ -57,7 +57,7 @@ Before running the script, you need to configure a few settings in `vintage_scra
 Run the main script:
 
 ```bash
-python vintage_scrapper.py
+python scrapper.py
 ```
 
 ### Workflow
@@ -74,7 +74,7 @@ The script generates an `output.xlsx` file in the same directory containing the 
 
 ## Project Structure
 
--   `vintage_scrapper.py`: Main script containing the logic for fetching, validating, and extracting data.
+-   `scrapper.py`: Main script containing the logic for fetching, validating, and extracting data.
 -   `exchange.py`: Mapping of country names to EODHD exchange codes and Yahoo Finance suffixes.
 -   `suffixes.py`: Mapping of country names to specific Yahoo Finance suffixes.
 -   `requirments.txt`: List of Python dependencies required for the project.
