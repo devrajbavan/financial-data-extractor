@@ -6,8 +6,7 @@ from exchange import EXCHANGE_MAP          # <-- Universal exchange file
 from suffixes import YAHOO_SUFFIX_MAP      # <-- Universal suffix file
 
 
-API_KEY = "API-KEY"
-COUNTRY = "denmark"
+API_KEY = "API_KEY"
 MIN_REVENUE = 10_000_000
 
 
@@ -72,9 +71,8 @@ def get_valid_yahoo_ticker(base, country):
 def get_revenue(ticker):
     t = yf.Ticker(ticker)
     try:
-        df = t.financials
-        if "Total Revenue" in df.index:
-            return df.loc["Total Revenue"].iloc[0]
+        info = t.get_info()
+        return info.get("totalRevenue")
     except:
         pass
     return None
@@ -83,22 +81,11 @@ def get_revenue(ticker):
 # 5) Extract final company info
 def extract_required_info(ticker):
     t = yf.Ticker(ticker)
-    info = t.get_info()
-
-    return {
-        "ticker": ticker,
-        "name": info.get("longName") or info.get("shortName"),
-        "hq_location": f"{info.get('address1', '')}, {info.get('city', '')}, "
-                       f"{info.get('state', '')}, {info.get('country', '')}",
-        "total_branches": info.get("fullTimeEmployees"),
-        "market_cap": info.get("marketCap"),
-        "current_price": info.get("currentPrice"),
-        "previous_close": info.get("previousClose"),
-        "volume": info.get("volume"),
-        "company_description": info.get("longBusinessSummary"),
-        "company_summary": info.get("longBusinessSummary"),
-        "main_work": f"{info.get('sector')} — {info.get('industry')}"
-    }
+    try:
+        info = t.get_info()
+        return info
+    except:
+        return None
 
 
 # MAIN
@@ -138,8 +125,8 @@ def main():
             break
 
     df = pd.DataFrame(results)
-    df.to_excel("output.xlsx", index=False)
-    print("✔ Output saved to output.xlsx")
+    df.to_excel("canada-1.xlsx", index=False)
+    print("✔ Output saved to canada-1.xlsx")
     
 
 
